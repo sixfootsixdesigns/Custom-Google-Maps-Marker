@@ -1,0 +1,59 @@
+.clearfix:before,
+.clearfix:after {
+	content: " ";
+	display: table;
+}
+.clearfix:after {
+	clear: both;
+}
+.pointer {
+	cursor: pointer;
+}
+.map-marker-wrapper *,
+.map-marker-wrapper *:before,
+.map-marker-wrapper *:after {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+.map-marker-wrapper img {
+	margin: 0;
+	padding: 0;
+	border: none;
+	display: block;
+}
+.map-marker-wrapper .map-marker {
+	display: block;
+	position: relative;
+	background: #37d5a6;
+}
+.map-marker-wrapper .map-marker:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(55, 213, 166, 0);
+	border-top-color: #37d5a6;
+	border-width: 5px;
+	margin-left: -5px;
+}
+.map-marker-wrapper .map-marker .map-marker-label {
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+	display: block;
+	padding: 10px 5px;
+}
+.map-marker-wrapper .no-frame {
+	background: none;
+}
+.map-marker-wrapper .no-frame:after {
+	border-top-color: #000;
+}
+.map-marker-wrapper .no-frame .map-marker-label {
+	padding: 0;
+}

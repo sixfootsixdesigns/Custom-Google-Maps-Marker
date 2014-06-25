@@ -4,7 +4,7 @@
 	'use strict';
 	
 	var MapMarker = win.MapMarker = function(opt_options) {
-		var self = this, labelClasses = '';
+		var self = this, labelClasses = [], markerClasses = [];
 
 		var defaults = {
 			content: '',
@@ -19,14 +19,16 @@
 		this.setValues(this.options);
 
 		if (this.options.clickable) {
-			labelClasses = ' pointer';
+			labelClasses.push('pointer');
 		}
+		labelClasses.unshift('map-marker-label', 'clearfix');
 
-		if (this.options.customClasses) {
-			labelClasses += ' ' + this.options.customClasses;
+		if (this.options.customClasses && this.options.customClasses.length) {			
+			markerClasses = this.options.customClasses.split(' ');	
 		}
+		markerClasses.unshift('map-marker');
 
-		this.$node = $('<div style="position:absolute;"><div style="position:relative;"><div class="map-marker-wrapper" style="display:' + (this.options.visible ? 'block' : 'none') + ';"><span class="map-marker"><span class="map-marker-label' + labelClasses + '">' + this.options.content + '</span></span></div></div></div>');
+		this.$node = $('<div style="position:absolute;"><div class="map-marker-wrapper" style="display:' + (this.options.visible ? 'block' : 'none') + ';"><span class="' + markerClasses.join(' ') + '"><span class="' + labelClasses.join(' ') + '">' + this.options.content + '</span></span></div></div>');
 
 		this.node = this.$node[0];
 		
@@ -104,7 +106,8 @@
 		this.getPanes().overlayMouseTarget.appendChild(this.node);
 		
 		this.$node.css({
-			'marginTop': ((this.$node.height() * 0.5) * -1)
+			'marginTop': (this.$node.outerHeight() * -1),
+			'marginLeft': ((this.$node.outerWidth() * 0.5) * -1)
 		});
 
 		// Ensures the label is redrawn if the text or position is changed.
