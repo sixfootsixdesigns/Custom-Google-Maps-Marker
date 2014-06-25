@@ -28,6 +28,8 @@
 
 		this.$node = $('<div style="position:absolute;"><div style="position:relative;"><div class="map-marker-wrapper" style="display:' + (this.options.visible ? 'block' : 'none') + ';"><span class="map-marker"><span class="map-marker-label' + labelClasses + '">' + this.options.content + '</span></span></div></div></div>');
 
+		this.node = this.$node[0];
+		
 		this.$node
 			.on('click.map-marker-events', 'span.map-marker', function(e) {
 				if (self.get('clickable')) {
@@ -98,8 +100,8 @@
 	MapMarker.prototype.onAdd = function() {
 		var self = this;
 
-		this.getPanes().overlayImage.appendChild(this.$node[0]);
-		this.getPanes().overlayMouseTarget.appendChild(this.$node[0]);
+		this.getPanes().overlayImage.appendChild(this.node);
+		this.getPanes().overlayMouseTarget.appendChild(this.node);
 		
 		this.$node.css({
 			'marginTop': ((this.$node.height() * 0.5) * -1)
@@ -113,13 +115,13 @@
 			google.maps.event.addListener(this, 'visible_changed', function() {
 				self.draw();
 			}),
-			google.maps.event.addDomListener(this.$node[0], 'click', function() { 
+			google.maps.event.addDomListener(this.node, 'click', function() { 
 				google.maps.event.trigger(self, 'click');
 			}),
-			google.maps.event.addDomListener(this.$node[0], 'mouseover', function() { 
+			google.maps.event.addDomListener(this.node, 'mouseover', function() { 
 				google.maps.event.trigger(self, 'mouseover');
 			}),
-			google.maps.event.addDomListener(this.$node[0], 'mouseout', function() { 
+			google.maps.event.addDomListener(this.node, 'mouseout', function() { 
 				google.maps.event.trigger(self, 'mouseout');
 			})
 		];
